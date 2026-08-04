@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+require('dotenv').config()
+const Note = require('./models/note')
 
 app.use(express.static('dist'))
 
@@ -20,21 +22,6 @@ let notes = [
     important: true,
   },
 ]
-
-const mongoose = require('mongoose')
-
-const password = process.argv[2]
-const url = `mongodb+srv://abbesbilel:${password}@cluster0.bkc118k.mongodb.net/noteApp?appName=Cluster0`
-
-mongoose.set('strictQuery',false)
-mongoose.connect(url, { family: 4 })
-
-const noteSchema = new mongoose.Schema({
-  content: String,
-  important: Boolean,
-})
-
-const Note = mongoose.model('Note', noteSchema)
 
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
@@ -107,7 +94,7 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint)
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
