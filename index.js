@@ -21,6 +21,21 @@ let notes = [
   },
 ]
 
+const mongoose = require('mongoose')
+
+const password = process.argv[2]
+const url = `mongodb+srv://abbesbilel:${password}@cluster0.bkc118k.mongodb.net/noteApp?appName=Cluster0`
+
+mongoose.set('strictQuery',false)
+mongoose.connect(url, { family: 4 })
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  important: Boolean,
+})
+
+const Note = mongoose.model('Note', noteSchema)
+
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
   console.log('Path:  ', request.path)
@@ -37,7 +52,9 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/notes', (request, response) => {
-  response.json(notes)
+  Note.find({}).then(notes => {
+    response.json(notes)
+  })
 })
 
 app.get('/api/notes/:id', (request, response) => {
