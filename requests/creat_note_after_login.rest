@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFiYmVzIiwiaWQiOiI2YTdiNDRjOTg0OGE5MTEyYzQzYzIzNTciLCJpYXQiOjE3ODY0NjQ0OTN9.wzn7rzqhuzpu_dkt1hlyLZkHY003vnBKBXGp3Pu0gic
+
+{
+    "content": "first try to post after login",
+    "important": false
+}
